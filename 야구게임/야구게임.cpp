@@ -5,8 +5,8 @@ using namespace std;
 int main() {
 	srand((unsigned int)time(0));
 
-	//¼ıÀÚ 3°³ ·£´ı »ı¼º
-	cout << "·£´ı ¼ıÀÚ°¡ »ı¼º µÇ¾ú½À´Ï´Ù..." << endl << "* * *" << endl;
+	//ìˆ«ì 3ê°œ ëœë¤ ìƒì„±
+	cout << "ëœë¤ ìˆ«ìê°€ ìƒì„± ë˜ì—ˆìŠµë‹ˆë‹¤..." << endl << "* * *" << endl;
 	int yagu[3] = {};
 	
 	for (int i = 0; i < 3; i++) {
@@ -22,15 +22,15 @@ int main() {
 			}
 		}
 	}
-	// °ÔÀÓÀÇ Åø
+	// ê²Œì„ì˜ íˆ´
 	int strike = 0, count = 0;
 
 	while (true) {
 		int ball = 0, strike = 0;
-		// ÀÔ·Â ¹Ş±â
+		// ì…ë ¥ ë°›ê¸°
 		int ipyagu[3] = {};
 		count++;
-		cout <<count <<"¹ø Â° µµÀü!!  "<< "¼ıÀÚ 3°³¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä. : " << endl;
+		cout <<count <<"ë²ˆ ì§¸ ë„ì „!!  "<< "ìˆ«ì 3ê°œë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”. : " << endl;
 		for (int i = 0; i < 3; i++) {
 			cin >> ipyagu[i];
 		}
@@ -56,7 +56,7 @@ int main() {
 			cout << "BALL : " << ball << " - " << "STRIKE : " << strike << endl;;
 		}
 		if (strike == 3) {
-			cout << " ³¡³µ½À´Ï´Ù. Á¤´äÀº " << yagu[0] << yagu[1] << yagu[2] << " ÀÔ´Ï´Ù.";
+			cout << " ëë‚¬ìŠµë‹ˆë‹¤. ì •ë‹µì€ " << yagu[0] << yagu[1] << yagu[2] << " ì…ë‹ˆë‹¤.";
 			return 0;
 		}
 	}
