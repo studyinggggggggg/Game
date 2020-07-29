@@ -108,13 +108,13 @@ int main() {
 
 	while (true) {
 		int bin = bingo_check(bingo);
-		cout << '\n' << bin << "ºù°í!";
+		cout << '\n' << bin << "ë¹™ê³ !";
 		if (bin == 5) {
 			break;
 		}
 		else {
 			int a;
-			cout << '\n' << "¼ýÀÚ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä : ";
+			cout << '\n' << "ìˆ«ìžë¥¼ ìž…ë ¥í•´ì£¼ì„¸ìš” : ";
 
 			cin >> a;
 
