@@ -3,7 +3,7 @@
 #include <Windows.h>
 using namespace std;
 
-// ���������� ���� �迭�� ������ִ� �ܰ�.
+// 빙고게임의 랜덤 배열을 만들어주는 단계.
 void make_bingo(int* bingo) {
 	for (int i = 0; i < 25; i++) {
 		bingo[i] = i + 1;
@@ -21,9 +21,9 @@ void make_bingo(int* bingo) {
 	}
 }
 
-// �������� �����ֱ� â.
+// 빙고게임 보여주기 창.
 void show(int* a, int* b, int c) {
-	cout << "==========����==========" << endl;
+	cout << "==========유저==========" << endl;
 	for (int i = 0; i < 25; i++) {
 		if (a[i] == INT_MAX) {
 			cout << '*';
@@ -39,8 +39,8 @@ void show(int* a, int* b, int c) {
 		}
 	}
 
-	if(c == 1){
-		cout << "==========��ǻ��==========" << endl;
+	if(c == 1){ //1일 경우에는 easy모드 이므로 컴퓨터의 빙고판을 그대로 출력
+		cout << "==========컴퓨터==========" << endl;
 		for (int i = 0; i < 25; i++) {
 			if (b[i] == INT_MAX) {
 				cout << '*';
@@ -57,8 +57,8 @@ void show(int* a, int* b, int c) {
 		}
 	}
 
-	else if(c == 2){
-		cout << "==========��ǻ��==========" << endl;
+	else if(c == 2){ // 2일 경우에는 hard모드 이므로 컴퓨터의 빙고판을 별표로 가려서 표시.
+		cout << "==========컴퓨터==========" << endl;
 		for (int i = 0; i < 25; i++) {
 			cout << "*";
 			if (i % 5 == 4) {
@@ -71,7 +71,7 @@ void show(int* a, int* b, int c) {
 	}
 }
 
-//��� ������ �ϼ��Ǿ����� Ȯ�����ִ� �Լ� 
+//몇개의 빙고가 완성되었는지 확인해주는 함수 
 int bingo_check(int* a) {
 	int bingo_number = 0;
 	for (int i = 0; i < 5; i++) {
@@ -126,7 +126,7 @@ int bingo_check(int* a) {
 	return bingo_number;
 }
 
-// �Է¹޴� ���� ���� üũ�ϱ�.
+// 입력받는 숫자 빙고 체크하기.
 void input_number(int a, int* b) {
 	for (int i = 0; i < 25; i++) {
 		if (b[i] == a) {
@@ -136,6 +136,7 @@ void input_number(int a, int* b) {
 	}
 }
 
+// 입력받은 값을 확인하여서 중복된 숫자인지 체크하는 함수.
 int save_check(int *a, int b, int c) {
 	for (int i = 0; i < b; i++) {
 		if (a[i] == c) {
@@ -146,28 +147,28 @@ int save_check(int *a, int b, int c) {
 }
 
 int main() {
-	int mode, user_number, pc_number ,turn = 0, count = 0; // ��� ���� , ���� ���� 
-	int save[25] = {};
+	int mode, user_number, pc_number ,turn = 0, count = 0; // 모드 선택 , 빙고 숫자 , turn = 0 은 플레이어 턴 turn = 1은 컴퓨터 턴 , count는 save함수에서 여태까지 입력받은 숫자의 개수를 기록,.
+	int save[25] = {}; // 게임간 입력받은 숫자의 값을 기록.
 
-	int user[25] = {}; // user�� ���� �迭.
-	make_bingo(user); //user ���� ����.
+	int user[25] = {}; // user의 빙고 배열.
+	make_bingo(user); //user 빙고 생성.
 
-	int cpt[25] = {}; // computer�� ���� �迭.
-	make_bingo(cpt); // computer�� ���� ����.
+	int cpt[25] = {}; // computer의 빙고 배열.
+	make_bingo(cpt); // computer의 빙고 생성.
 
-	cout << "��带 ������ �ּ���. [1 : easy / 2 : hard ] : " << endl; // ��� �Է¹ޱ� ���� �˸��� ǥ��.
-	cin >> mode; //��带 �Է¹޴´�.
+	cout << "모드를 선택해 주세요. [1 : easy / 2 : hard ] : " << endl; // 모드 입력받기 위해 알림말 표시.
+	cin >> mode; //모드를 입력받는다.
 	
-	system("cls"); //ȭ�� �ʱ�ȭ
+	system("cls"); //화면 초기화
 
 	while (true) {
 		srand((unsigned int)time(0));
 
-		int bingo_num1, bingo_num2; //1�� ���� 2�� �Ǿ�
+		int bingo_num1, bingo_num2; //1은 유저 2는 피씨
 		show(user, cpt, mode);
 		bingo_num1 = bingo_check(user);
 		bingo_num2 = bingo_check(cpt);
-		if (bingo_num1 == 5 or bingo_num2 == 5) {
+		if (bingo_num1 == 5 or bingo_num2 == 5) { // 상대 그리고 플레리어의 빙고 숫자를 체크하여 승패를 결정. 
 			if (bingo_num1 == 5) {
 				cout << "you win!!";
 				break;
@@ -182,47 +183,47 @@ int main() {
 			}
 		}
 		else {
-			if (turn == 0) {
-				cout << "�����Է� [1 ~ 25] : " << endl;
-				while (true) {
+			if (turn == 0) {				//turn = 0 일 경우에는 플레이어가 숫자를 부르는 턴.
+				cout << "숫자입력 [1 ~ 25] : " << endl;
+				while (true) {			// 입력받은 숫자가 중복된 숫자인지 파악하기 위한 loop구조. 중복된 값이 나오지 않을 떄 까지 반복입력.
 					cin >> user_number;
-					if (save_check(save, count, user_number) == 1) {
-						cout << "�ߺ��� �����Դϴ�, �����Է� [1 ~ 25] : " << endl;
+					if (save_check(save, count, user_number) == 1) { 
+						cout << "중복된 숫자입니다, 숫자입력 [1 ~ 25] : " << endl;
 					}
 					else {
 						break;
 					}
 				}
 				
-				input_number(user_number, user);
+				input_number(user_number, user);	// 입력받은 값을 빙고판과 비교하여 같은 숫자를 지우는 과정
 				input_number(user_number, cpt);
 
-				turn = 1;
-				save[count] = user_number;
+				turn = 1;	// 본인 턴이 끝났으므로 상대방 턴으로 넘기기.
+				save[count] = user_number; 
 				count++;
 			}
 			else if (turn == 1) {
 				while (true) {
-					pc_number = rand() % 25 + 1;
-					if (save_check(save, count, pc_number) == 1) {
+					pc_number = rand() % 25 + 1; // 1부터 25까지 랜덤 숫자 출력
+					if (save_check(save, count, pc_number) == 1) { //중복 체크 과정. turn = 0 일경우 과정과 동일.
 					}
 					else {
 						break;
 					}
 				}
 				
-				cout << "pc�� " << pc_number << " �� ���߽��ϴ�." << endl;
-				Sleep(1000);
+				cout << "pc는 " << pc_number << " 를 말했습니다." << endl; // 플레이어에게 피시가 어떤 숫자를 골랐는지 표시.,
+				Sleep(1000); //1000 = 1초의 시간을 주어 214번 줄의 코드가 1초동안 창에 표시되게 하기 위함.
 				input_number(pc_number, user);
 				input_number(pc_number, cpt);
 
-				turn = 0;
+				turn = 0; 
 				save[count] = user_number;
 				count++;
 			}
-			system("cls");
+			system("cls"); // 화면 지우기/
 		}
 		
 	}
-	cout << endl << "END!";
+	cout << endl << "END!"; //게임 종료
 }
